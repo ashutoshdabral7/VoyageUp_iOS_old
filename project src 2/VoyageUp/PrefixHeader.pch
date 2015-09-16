@@ -34,9 +34,9 @@
 #import "ProfileDetails.h"
 #import "NSString-Utilities.h"
 #import "NSDictionary+NullValidation.h"
-
+#import "InputValidator.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "connectionItems.h"
 #import "latestMessages.h"
 #import <CoreLocation/CoreLocation.h>
 

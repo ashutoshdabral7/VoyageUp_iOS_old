@@ -114,6 +114,9 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    if (locationUpdate) {
+        [locationUpdate invalidate];
+    }
     [self updateNetworkdidGoingtoBackground];
 }
 
@@ -121,12 +124,19 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     //[self getCurrentLocation];
     //[self locationUpdate:nil];
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // [self getCurrentLocation];
-    [self locationUpdate:nil];
+    
+    locationUpdate = [NSTimer scheduledTimerWithTimeInterval:60.0
+                                                      target:self
+                                                    selector:@selector(locationUpdate:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     tabBarController.selectedViewController=[tabBarController.viewControllers objectAtIndex:0];
 }
@@ -218,7 +228,7 @@
 
 -(void)getNetworkId
 {
-    self.network_token= [helper randomStringWithLength];//@"xxx";//
+    self.network_token= @"xxx";//[helper randomStringWithLength];//
     @try {
         //------- get network id
         

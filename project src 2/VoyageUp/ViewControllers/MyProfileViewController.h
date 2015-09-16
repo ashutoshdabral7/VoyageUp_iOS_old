@@ -25,7 +25,7 @@
     UIButton *Editbutton;
     
     UIActionSheet *imageUpload ;
-   
+    
     UIToolbar *toolBar;
     BOOL isBeginEdited;
     BOOL photoEdit;

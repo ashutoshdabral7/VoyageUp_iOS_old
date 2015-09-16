@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "VUContactsViewController.h"
+
 #import "VUMenuViewController.h"
 
 @import SystemConfiguration.CaptiveNetwork;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
+{
+    NSTimer *locationUpdate;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CLLocationManager *locationManager;

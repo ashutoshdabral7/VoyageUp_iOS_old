@@ -8,7 +8,7 @@
 
 #import "MyProfileViewController.h"
 #import "Constants.h"
-
+#import "VUChatMessageViewController.h"
 @interface MyProfileViewController ()
 
 @end
@@ -74,7 +74,8 @@
     }
     else
     {
-           }
+        [self getMyConnections1];
+    }
     
     
     self.navigationItem.titleView = [helper SetNavTitle:profileDetails.FullName];
@@ -139,57 +140,78 @@
     }
     newPhoto=false;
 }
-
+-(void)setConnections:(NSArray*)array
+{
+    if ([array containsObject:@"1"])
+        [self.swith_Chat setOn:YES animated:YES];
+    else
+        [self.swith_Chat setOn:NO animated:YES];
+    if ([array containsObject:@"2"])
+        [self.switch_drink setOn:YES animated:YES];
+    else
+        [self.switch_drink setOn:NO animated:YES];
+    if ([array containsObject:@"3"]){
+        [self.switch_help setOn:YES animated:YES];
+        self.txt_dob.userInteractionEnabled=true;
+        self.txt_dob.alpha=1;
+    }
+    else
+    {
+        [self.switch_help setOn:NO animated:YES];
+        self.txt_dob.userInteractionEnabled=false;
+        self.txt_dob.alpha=0.6;
+    }
+}
 #pragma api call
 
 - (void)Update{
-    
-    
-    UIImage *orientaionFixedImage=[self.userImageView1.image fixOrientation]; // ----- orientaion issue ----- fix
-    NSData *imgData = UIImageJPEGRepresentation(orientaionFixedImage, 0);
-    
-    NSDictionary *postobject = [NSDictionary dictionaryWithObjectsAndKeys:
-                                _txt_Firstname.text,POST_FIRSTNAME,
-                                _txt_Lastname.text,POST_LASTNAME,
-                                _txt_dob.text,POST_DOB,
-                                _txt_Country.text,POST_COUNTRY,
-                                @"M",POST_GENDER,
-                                nil];
-    [SVProgressHUD showWithStatus:@"Updating" maskType:SVProgressHUDMaskTypeClear];
-    [[VoyageUpAPIManager sharedManager] ProfileUpdate:postobject AndPhoto:orientaionFixedImage WithCompletionblock:^(NSDictionary*result,NSError *error)
-     {
-         @try {
-             
-             if (result != nil)
-             {
-                 NSString *title = [result objectForKey:@"title"];
-                 NSString *message = [result objectForKey:@"message"];
-                 [helper ShowSuccessAlert:self withTitle:title withMessage:message];
-                 if ([[result valueForKeyPath:@"status"] isEqualToString:@"success"])
+    if ([self validate]) {
+        
+        UIImage *orientaionFixedImage=[self.userImageView1.image fixOrientation]; // ----- orientaion issue ----- fix
+        NSData *imgData = UIImageJPEGRepresentation(orientaionFixedImage, 0);
+        
+        NSDictionary *postobject = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    _txt_Firstname.text,POST_FIRSTNAME,
+                                    _txt_Lastname.text,POST_LASTNAME,
+                                    _txt_dob.text,POST_DOB,
+                                    _txt_Country.text,POST_COUNTRY,
+                                    @"M",POST_GENDER,
+                                    nil];
+        [SVProgressHUD showWithStatus:@"Updating" maskType:SVProgressHUDMaskTypeClear];
+        [[VoyageUpAPIManager sharedManager] ProfileUpdate:postobject AndPhoto:orientaionFixedImage WithCompletionblock:^(NSDictionary*result,NSError *error)
+         {
+             @try {
+                 
+                 if (result != nil)
                  {
-                     [[ProfileDetails getProfileDetails] saveUserDetails:[result objectForKey:@"result"]];
-                     
+                     NSString *title = [result objectForKey:@"title"];
+                     NSString *message = [result objectForKey:@"message"];
+                     [helper ShowSuccessAlert:self withTitle:title withMessage:message];
+                     if ([[result valueForKeyPath:@"status"] isEqualToString:@"success"])
+                     {
+                         [[ProfileDetails getProfileDetails] saveUserDetails:[result objectForKey:@"result"]];
+                         
+                     }
+                     else
+                     {
+                         
+                     }
+                     [SVProgressHUD dismiss];
                  }
+                 
                  else
                  {
-                     
+                     [SVProgressHUD dismiss];
                  }
-                 [SVProgressHUD dismiss];
+                 
+             }
+             @catch (NSException *exception) {
+                 
              }
              
-             else
-             {
-                 [SVProgressHUD dismiss];
-             }
-             
-         }
-         @catch (NSException *exception) {
-             
-         }
-         
-     }];
-    
-    
+         }];
+        
+    }
 }
 
 #pragma mark validation
@@ -198,9 +220,10 @@
 - (IBAction)UpdateProfile:(id)sender
 {
     [self.view endEditing:YES];
-    
-    [self Update];
-    
+    if ([self editedorNot]|| photoEdit)
+        [self Update];
+    else
+        [helper alertWarningWithTitle:nil message:@"There are no changes done for update" delegate:self];
 }
 
 
@@ -267,12 +290,42 @@
     }
     
     [self.view addGestureRecognizer:tap];
+    //    if (textField==_txt_dob) {
+    //        UIDatePicker*  datePicker = [[UIDatePicker alloc]init];
+    //        datePicker = [[UIDatePicker alloc]init];
+    //        datePicker.datePickerMode = UIDatePickerModeDate;
+    //        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    //        NSDate *currentDate1 = [NSDate date];
+    //        NSDateComponents *comps = [[NSDateComponents alloc] init];
+    //        [comps setYear:-14];
+    //        NSDate *maxDate = [calendar dateByAddingComponents:comps toDate:currentDate1 options:0];
+    //        [comps setYear:-100];
+    //        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:currentDate1 options:0];
+    //        [datePicker setMinimumDate:minDate];
+    //        [datePicker setMinimumDate:minDate];
+    //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    //
+    //        [datePicker setMaximumDate:maxDate];
+    //
+    //        // [datePicker setDate:[NSDate date]];
+    //        [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
+    //        self.txt_dob.inputView = datePicker;
+    //        _txt_dob.text = [self formatDate:datePicker.date];
+    //        [helper addDoneButtonForTextFiled:_txt_dob];
+    //    }
+    
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     isBeginEdited = NO;
     [self.view removeGestureRecognizer:tap];
-    
+    //    if(textField == _txt_dob)
+    //    {
+    //        [self.scrollView setContentOffset:CGPointMake(0,0)];
+    //    }
+    //    //      [self.scrollView setContentOffset:CGPointMake(0,0)];
+    //    self.verticalconstraint.constant=3;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -337,7 +390,11 @@
 
 -(IBAction)chat_Clicked:(id)sender
 {
+    VUChatMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:SB_ID_Chat];
     
+    vc.userProfile=self.profileDetails;
+    //vc.modalPresentationStyle= UIModalPresentationCustom;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(IBAction)addPhoto:(id)sender{
     
@@ -391,7 +448,23 @@
     }
     else
     {
-       
+        if (buttonIndex == 0)
+        {
+            VUChatMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:SB_ID_Chat];
+            
+            vc.userProfile=self.profileDetails;
+            //vc.modalPresentationStyle= UIModalPresentationCustom;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+        if (buttonIndex == 1)
+        {
+            [self Invite:[NSString stringWithFormat:@"Are you sure want to meet %@ ?",self.profileDetails.FullName] type:INVITE_MEET];
+        }
+        if (buttonIndex == 2)
+        {
+            [ self Invite:[NSString stringWithFormat:@"Are you sure want to invite %@ for a coffee?",self.profileDetails.FullName] type:INVITE_COFFEE];
+        }
     }
 }
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
@@ -499,14 +572,14 @@
         NSMutableArray *qnArray = [NSMutableArray new];
         for (NSDictionary *pack in questionsArrayTemp)
         {
-           
+            [qnArray addObject:[connectionItems connectionDictionary:pack]];
         }
         [[DataStoreManager sharedDataStoreManager] setAllmyConnectionsArrayFrom:myConnectionsArray];
         [[DataStoreManager sharedDataStoreManager] setAllconnectionsArrayFrom:qnArray];
         connectionArray=[[DataStoreManager sharedDataStoreManager]getAllconnectionsArray];
         myConnectionArray=[[DataStoreManager sharedDataStoreManager]getAllmyConnectionsArray];
         myConnectionArray=[helper intToStringArray:myConnectionArray];
-        
+        [self setConnections:myConnectionArray];
         
         
     }];
@@ -515,11 +588,46 @@
     
 }
 
-
+-(IBAction)changeValue:(id)sender
+{
+   
+}
 #pragma mark check edit or not
-
+-(BOOL)editedorNot
+{
+    ProfileDetails *profileDetails=[ProfileDetails getProfileDetails];
+    
+    if (![_txt_Firstname.text isEqualToString:profileDetails.FirstName])
+        return YES;
+    else if (![_txt_Lastname.text isEqualToString:profileDetails.LastName] )
+        return YES;
+    else if (![_txt_Lastname.text isEqualToString:profileDetails.LastName] )
+        return YES;
+    else if (![_txt_Country.text isEqualToString:profileDetails.Country] )
+        return YES;
+    else if (![_txt_dob.text isEqualToString:profileDetails.dob] )
+        return YES;
+    else
+        return NO;
+}
 #pragma mark - validation
-
+-(BOOL)validate{
+    
+    if (![InputValidator validateMandatoryFields:_txt_Firstname.text]){
+        
+        [helper alertWarningWithTitle:nil message:VALIDATION_FIRST_NAME delegate:self];
+        return NO;
+    }
+    else if (![InputValidator validateMandatoryFields:_txt_Lastname.text]){
+        
+        [helper alertWarningWithTitle:nil message:VALIDATION_LAST_NAME delegate:self];
+        return NO;
+    }
+    
+    else
+        return YES;
+    
+}
 
 #pragma mark other users
 
@@ -537,8 +645,123 @@
     [actionSheet showInView:self.view];
 }
 #pragma mark  share my table
+- (void)Invite:(NSString*)msg type:(NSString*)type{
+    
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    alert.shouldDismissOnTapOutside = YES;
+    alert.showAnimationType = SlideInToCenter;
+    UITextField* txt_shareMytable = [alert addTextField:@"Leave a message here"];
+    txt_shareMytable.autocorrectionType = UITextAutocorrectionTypeNo;
+    txt_shareMytable.delegate = self;
+    alert.backgroundViewColor=COLOR_MAIN_BG;
+    [alert addButton:@"Done" actionBlock:^(void) {
+        
+        [self shareMyTableApiCall:txt_shareMytable.text type:type];
+        
+    }];
+    [alert addButton:@"Cancel" actionBlock:^(void) {
+        
+        
+        
+    }];
+    UIImage *image=[UIImage imageNamed:type];
+    // [alert showNotice:self title:kInfoTitle subTitle:nil closeButtonTitle:Nil duration:0.0f];
+    
+    [alert showCustom:self image:image color:COLOR_TEXT title:type subTitle:msg closeButtonTitle:nil duration:0.0f];
+}
+-(void)shareMyTableApiCall:(NSString*)message type:(NSString*)type
+{
+    if (message.length<1)
+        [self Invite:SHARE_TABLE_VALIDATION_MSG type:type];
+    else
+    {
+        NSDictionary *postobject = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    self.user_id,@"notification_receiver",
+                                    type,POST_INVITE_TYPE,
+                                    POST_INVITE_MESSAGE,POST_INVITE_MESSAGE,
+                                    nil];
+        
+        [[VoyageUpAPIManager sharedManager] Invite_Notification:postobject WithCompletionblock:^(NSDictionary*result,NSError *error)
+         {
+             @try {
+                 
+                 NSString *title = [result objectForKey:@"title"];
+                 NSString *message = [result objectForKey:@"message"];
+                 
+                 if ([[result valueForKeyPath:@"status"] isEqualToString:@"success"])
+                 {
+                     [helper ShowSuccessAlert:self withTitle:title withMessage:message];
+                     
+                 }
+                 
+             }
+             @catch (NSException *exception){
+                 
+             }
+             
+         }];
+    }
+}
 
-
+-(void)getMyConnections1
+{
+    @try {
+        
+        [[VoyageUpAPIManager sharedManager] GetConnection_singleUser:self.user_id  :^(NSDictionary*result,NSError *error) {
+            
+            
+            NSArray *questionsArrayTemp=[result valueForKeyPath:@"all_connections"];
+            NSMutableArray *myConnectionsArray=[result valueForKeyPath:@"my_connections"];
+            NSMutableArray *qnArray = [NSMutableArray new];
+            for (NSDictionary *pack in questionsArrayTemp)
+            {
+                [qnArray addObject:[connectionItems connectionDictionary:pack]];
+            }
+            
+            [self setConnections:[helper intToStringArray:myConnectionsArray]];
+            
+            
+        }];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    
+    
+}
+-(void)setConnections1:(NSArray*)array
+{
+    @try {
+        if ([array containsObject:@"1"])
+            [self.swith_Chat setOn:YES animated:YES];
+        else
+            [self.swith_Chat setOn:NO animated:YES];
+        if ([array containsObject:@"2"])
+            [self.switch_drink setOn:YES animated:YES];
+        else
+            [self.switch_drink setOn:NO animated:YES];
+        if ([array containsObject:@"3"]){
+            [self.switch_help setOn:YES animated:YES];
+            self.txt_dob.userInteractionEnabled=true;
+            self.txt_dob.alpha=1;
+        }
+        else
+        {
+            [self.switch_help setOn:NO animated:YES];
+            self.txt_dob.userInteractionEnabled=false;
+            self.txt_dob.alpha=0.6;
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    
+    
+    
+    
+    
+    
+}
 
 
 @end

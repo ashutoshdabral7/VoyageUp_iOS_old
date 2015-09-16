@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0005E9F71B02DC2F00713A74 /* chaticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0005E9F61B02DC2F00713A74 /* chaticon@2x.png */; };
 		0005E9F91B02DC4800713A74 /* optionsBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0005E9F81B02DC4800713A74 /* optionsBtn@2x.png */; };
+		001D5BDF1BA9C3E200C3E41C /* VUChatMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BDE1BA9C3E200C3E41C /* VUChatMessageViewController.m */; };
+		001D5BE61BA9C45400C3E41C /* LIMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BE11BA9C45400C3E41C /* LIMessage.m */; };
+		001D5BE71BA9C45400C3E41C /* latestMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BE31BA9C45400C3E41C /* latestMessages.m */; };
+		001D5BE81BA9C45400C3E41C /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BE51BA9C45400C3E41C /* Notification.m */; };
+		001D5BEB1BA9C4F300C3E41C /* InputValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BEA1BA9C4F300C3E41C /* InputValidator.m */; };
+		001D5BEE1BA9C57100C3E41C /* connectionItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 001D5BED1BA9C57100C3E41C /* connectionItems.m */; };
 		004674F71AE57399007F861E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 004674F61AE57399007F861E /* main.m */; };
 		004674FA1AE57399007F861E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 004674F91AE57399007F861E /* AppDelegate.m */; };
 		004675021AE57399007F861E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 004675011AE57399007F861E /* Images.xcassets */; };
@@ -458,6 +464,18 @@
 /* Begin PBXFileReference section */
 		0005E9F61B02DC2F00713A74 /* chaticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chaticon@2x.png"; sourceTree = "<group>"; };
 		0005E9F81B02DC4800713A74 /* optionsBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optionsBtn@2x.png"; sourceTree = "<group>"; };
+		001D5BDD1BA9C3E200C3E41C /* VUChatMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VUChatMessageViewController.h; sourceTree = "<group>"; };
+		001D5BDE1BA9C3E200C3E41C /* VUChatMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VUChatMessageViewController.m; sourceTree = "<group>"; };
+		001D5BE01BA9C45400C3E41C /* LIMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIMessage.h; sourceTree = "<group>"; };
+		001D5BE11BA9C45400C3E41C /* LIMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIMessage.m; sourceTree = "<group>"; };
+		001D5BE21BA9C45400C3E41C /* latestMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = latestMessages.h; sourceTree = "<group>"; };
+		001D5BE31BA9C45400C3E41C /* latestMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = latestMessages.m; sourceTree = "<group>"; };
+		001D5BE41BA9C45400C3E41C /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
+		001D5BE51BA9C45400C3E41C /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
+		001D5BE91BA9C4F300C3E41C /* InputValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputValidator.h; sourceTree = "<group>"; };
+		001D5BEA1BA9C4F300C3E41C /* InputValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputValidator.m; sourceTree = "<group>"; };
+		001D5BEC1BA9C57100C3E41C /* connectionItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connectionItems.h; sourceTree = "<group>"; };
+		001D5BED1BA9C57100C3E41C /* connectionItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connectionItems.m; sourceTree = "<group>"; };
 		004674F11AE57399007F861E /* VoyageUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoyageUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		004674F51AE57399007F861E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004674F61AE57399007F861E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
@@ -1251,6 +1269,8 @@
 				00DD89361AFA8CA300575C63 /* Reachability.m */,
 				00DE95421AF160EA0041D90F /* Constants.h */,
 				00DFFA581AFBE34500AFC68A /* Messages.h */,
+				001D5BE91BA9C4F300C3E41C /* InputValidator.h */,
+				001D5BEA1BA9C4F300C3E41C /* InputValidator.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1333,7 +1353,15 @@
 				00BDC6981B0BB7D4002301EF /* ProfileDetails.h */,
 				00BDC6991B0BB7D4002301EF /* ProfileDetails.m */,
 				00DA35351B07B2340018A1C3 /* User.h */,
+				001D5BEC1BA9C57100C3E41C /* connectionItems.h */,
+				001D5BED1BA9C57100C3E41C /* connectionItems.m */,
 				00DA35361B07B2340018A1C3 /* User.m */,
+				001D5BE01BA9C45400C3E41C /* LIMessage.h */,
+				001D5BE11BA9C45400C3E41C /* LIMessage.m */,
+				001D5BE21BA9C45400C3E41C /* latestMessages.h */,
+				001D5BE31BA9C45400C3E41C /* latestMessages.m */,
+				001D5BE41BA9C45400C3E41C /* Notification.h */,
+				001D5BE51BA9C45400C3E41C /* Notification.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1364,6 +1392,8 @@
 				00BDD3761AED5AB900495918 /* VUContactsViewController.m */,
 				00DC7BAB1AF66D45002B4A57 /* LoginViewController.h */,
 				00DC7BAC1AF66D45002B4A57 /* LoginViewController.m */,
+				001D5BDD1BA9C3E200C3E41C /* VUChatMessageViewController.h */,
+				001D5BDE1BA9C3E200C3E41C /* VUChatMessageViewController.m */,
 				0080E1BD1AFE56E600AD39E9 /* SignUpViewController.h */,
 				0080E1BE1AFE56E600AD39E9 /* SignUpViewController.m */,
 			);
@@ -2340,6 +2370,7 @@
 				00DAF4501B0A36F400A9805D /* HttpUtility.m in Sources */,
 				00DD89371AFA8CA300575C63 /* Reachability.m in Sources */,
 				00DB2C881B65307B00238523 /* SDWebImagePrefetcher.m in Sources */,
+				001D5BEE1BA9C57100C3E41C /* connectionItems.m in Sources */,
 				009088BF1B17704B00F82DED /* PECropView.m in Sources */,
 				00476ED01AEEA8C700A782E0 /* UIColor+SLAddition.m in Sources */,
 				00DA35371B07B2340018A1C3 /* User.m in Sources */,
@@ -2364,11 +2395,14 @@
 				00BDD3581AED532500495918 /* AFSecurityPolicy.m in Sources */,
 				00476EF21AEFF63200A782E0 /* UIAlertView+AFNetworking.m in Sources */,
 				0080E1C21AFE5D2600AD39E9 /* UITextField+padding.m in Sources */,
+				001D5BE81BA9C45400C3E41C /* Notification.m in Sources */,
 				00DE95411AF15FF70041D90F /* MenuTableViewCell.m in Sources */,
 				0086F24E1B166EC9006D7D28 /* SSKeychain.m in Sources */,
 				00DB2C8C1B65307B00238523 /* UIImage+WebP.m in Sources */,
 				00DC7BAD1AF66D45002B4A57 /* LoginViewController.m in Sources */,
+				001D5BE71BA9C45400C3E41C /* latestMessages.m in Sources */,
 				00BDD3561AED532500495918 /* AFHTTPSessionManager.m in Sources */,
+				001D5BEB1BA9C4F300C3E41C /* InputValidator.m in Sources */,
 				00DB2C581B652F8900238523 /* HPGrowingTextView.m in Sources */,
 				00BDD35A1AED532500495918 /* AFURLRequestSerialization.m in Sources */,
 				00DA35311B07B2070018A1C3 /* DataStoreManager.m in Sources */,
@@ -2392,6 +2426,7 @@
 				00DB2C801B65307B00238523 /* MKAnnotationView+WebCache.m in Sources */,
 				004674F71AE57399007F861E /* main.m in Sources */,
 				009088C21B17704B00F82DED /* PEResizeControl.m in Sources */,
+				001D5BE61BA9C45400C3E41C /* LIMessage.m in Sources */,
 				00DD7DF71B124842000F324B /* UIImage+UIImage_EMCImageResize.m in Sources */,
 				00DB2C8E1B65307B00238523 /* UIImageView+WebCache.m in Sources */,
 				00DD7DF41B124842000F324B /* EMCCountry.m in Sources */,
@@ -2400,6 +2435,7 @@
 				00BDC69A1B0BB7D4002301EF /* ProfileDetails.m in Sources */,
 				00DB2C851B65307B00238523 /* SDWebImageDownloader.m in Sources */,
 				00DC7BDC1AF69049002B4A57 /* myButton.m in Sources */,
+				001D5BDF1BA9C3E200C3E41C /* VUChatMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
